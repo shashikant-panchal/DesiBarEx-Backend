@@ -10,7 +10,8 @@ const entrySchema = new mongoose.Schema({
   sale: { type: Number, default: 0 }, // Bottles sold
   cb: { type: Number, default: 0 }, // Closing balance (total - sale)
   rate: { type: Number, default: 0 }, // Rate per bottle
-  amount: { type: Number, default: 0 } // Amount (sale * rate)
+  amount: { type: Number, default: 0 }, // Amount (sale * rate)
+  owner: { type: String, required: true } // Owner identifier (verified PIN)
 }, {
   timestamps: true
 });

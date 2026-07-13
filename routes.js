@@ -77,23 +77,30 @@ router.get('/catalog', (req, res) => {
   });
 });
 
-// GET /api/entries - Get all entries
+// GET /api/entries - Get all entries for a specific owner
 router.get('/entries', async (req, res) => {
   try {
-    const entries = await Entry.find().sort({ date: -1, brand: 1 });
+    const { owner } = req.query;
+    if (!owner) {
+      return res.status(400).json({ error: 'Owner query param is required' });
+    }
+    const entries = await Entry.find({ owner: String(owner) }).sort({ date: -1, brand: 1 });
     res.json(entries);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
 });
 
-// POST /api/entries - Create a new entry
+// POST /api/entries - Create or update an entry for a specific owner
 router.post('/entries', async (req, res) => {
   try {
-    const { date, brand, size, ob, recp, total, sale, cb, rate, amount } = req.body;
+    const { date, brand, size, ob, recp, total, sale, cb, rate, amount, owner } = req.body;
+    if (!owner) {
+      return res.status(400).json({ error: 'Owner property is required' });
+    }
     
-    // Check if an entry with the same brand, size, and date already exists
-    const existing = await Entry.findOne({ brand, size, date });
+    // Check if an entry with the same brand, size, date, and owner already exists
+    const existing = await Entry.findOne({ brand, size, date, owner: String(owner) });
     if (existing) {
       existing.ob = ob;
       existing.recp = recp;
@@ -116,7 +123,8 @@ router.post('/entries', async (req, res) => {
       sale,
       cb,
       rate,
-      amount
+      amount,
+      owner: String(owner)
     });
     const saved = await newEntry.save();
     res.status(201).json(saved);
@@ -125,13 +133,16 @@ router.post('/entries', async (req, res) => {
   }
 });
 
-// PUT /api/entries/:id - Update an entry
+// PUT /api/entries/:id - Update an entry for a specific owner
 router.put('/entries/:id', async (req, res) => {
   try {
-    const { date, brand, size, ob, recp, total, sale, cb, rate, amount } = req.body;
+    const { date, brand, size, ob, recp, total, sale, cb, rate, amount, owner } = req.body;
+    if (!owner) {
+      return res.status(400).json({ error: 'Owner property is required' });
+    }
     const updated = await Entry.findByIdAndUpdate(
       req.params.id,
-      { date, brand, size, ob, recp, total, sale, cb, rate, amount },
+      { date, brand, size, ob, recp, total, sale, cb, rate, amount, owner: String(owner) },
       { new: true }
     );
     if (!updated) return res.status(404).json({ error: 'Entry not found' });
@@ -152,14 +163,20 @@ router.delete('/entries/:id', async (req, res) => {
   }
 });
 
-// DELETE /api/entries - Clear all entries (Reset functionality)
+// DELETE /api/entries - Clear all entries for a specific owner (Reset functionality)
 router.delete('/entries', async (req, res) => {
   try {
-    await Entry.deleteMany({});
-    res.json({ message: 'All entries cleared successfully' });
+    const { owner } = req.query;
+    if (!owner) {
+      return res.status(400).json({ error: 'Owner query param is required' });
+    }
+    await Entry.deleteMany({ owner: String(owner) });
+    res.json({ message: 'All entries for this owner cleared successfully' });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
 });
 
 module.exports = router;
+
+
