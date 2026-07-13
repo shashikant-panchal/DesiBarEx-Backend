@@ -55,6 +55,58 @@ router.post('/change-pin', async (req, res) => {
   }
 });
 
+// GET /api/owners - Super Admin: List all owners
+router.get('/owners', async (req, res) => {
+  try {
+    const { superpin } = req.headers;
+    if (superpin !== '286353') {
+      return res.status(403).json({ error: 'Unauthorized' });
+    }
+    const owners = await Owner.find().sort({ createdAt: -1 });
+    res.json(owners);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// POST /api/owners - Super Admin: Create a new owner
+router.post('/owners', async (req, res) => {
+  try {
+    const { superpin } = req.headers;
+    if (superpin !== '286353') {
+      return res.status(403).json({ error: 'Unauthorized' });
+    }
+    const { pin } = req.body;
+    if (!pin || pin.length < 4) {
+      return res.status(400).json({ error: 'PIN must be at least 4 digits' });
+    }
+    const existing = await Owner.findOne({ pin: String(pin) });
+    if (existing) {
+      return res.status(409).json({ error: 'An owner with this PIN already exists' });
+    }
+    const owner = new Owner({ pin: String(pin) });
+    await owner.save();
+    res.status(201).json(owner);
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
+});
+
+// DELETE /api/owners/:id - Super Admin: Remove an owner
+router.delete('/owners/:id', async (req, res) => {
+  try {
+    const { superpin } = req.headers;
+    if (superpin !== '286353') {
+      return res.status(403).json({ error: 'Unauthorized' });
+    }
+    const deleted = await Owner.findByIdAndDelete(req.params.id);
+    if (!deleted) return res.status(404).json({ error: 'Owner not found' });
+    res.json({ message: 'Owner removed successfully' });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 // GET /api/catalog - Returns the initial brand list from Brand list.json
 router.get('/catalog', (req, res) => {
   const filePath = path.join(__dirname, 'Brand list.json');
