@@ -1,0 +1,49 @@
+{
+  "ledger": {
+    "beer_sale": [
+      { "item": "K.F. Can", "ml": null, "ob": null, "recp": null, "total": null, "sale": null, "cb": null, "rate": null, "amount": null },
+      { "item": "K.F. Strong", "ml": null, "ob": null, "recp": null, "total": null, "sale": null, "cb": null, "rate": null, "amount": null },
+      { "item": "Knock Out", "ml": null, "ob": null, "recp": null, "total": null, "sale": null, "cb": null, "rate": null, "amount": null },
+      { "item": "Budwiser L Can", "ml": null, "ob": null, "recp": null, "total": null, "sale": null, "cb": null, "rate": null, "amount": null },
+      { "item": "Tuborg", "ml": null, "ob": null, "recp": null, "total": null, "sale": null, "cb": null, "rate": null, "amount": null },
+      { "item": "Old Monk", "ml": null, "ob": null, "recp": null, "total": null, "sale": null, "cb": null, "rate": null, "amount": null },
+      { "item": "Power Cool", "ml": null, "ob": null, "recp": null, "total": null, "sale": null, "cb": null, "rate": null, "amount": null },
+      { "item": "Carlsburg", "ml": null, "ob": null, "recp": null, "total": null, "sale": null, "cb": null, "rate": null, "amount": null },
+      { "item": "Bacardi Orange", "ml": null, "ob": null, "recp": null, "total": null, "sale": null, "cb": null, "rate": null, "amount": null },
+      { "item": "Breezer Orange", "ml": null, "ob": null, "recp": null, "total": null, "sale": null, "cb": null, "rate": null, "amount": null },
+      { "item": "Cola", "ml": null, "ob": null, "recp": null, "total": null, "sale": null, "cb": null, "rate": null, "amount": null },
+      { "item": "Soda", "ml": null, "ob": null, "recp": null, "total": null, "sale": null, "cb": null, "rate": null, "amount": null },
+      { "item": "Red Bull", "ml": null, "ob": null, "recp": null, "total": null, "sale": null, "cb": null, "rate": null, "amount": null },
+      { "item": "Water", "ml": null, "ob": null, "recp": null, "total": null, "sale": null, "cb": null, "rate": null, "amount": null },
+      { "item": "Green Monk", "ml": null, "ob": null, "recp": null, "total": null, "sale": null, "cb": null, "rate": null, "amount": null }
+    ],
+    "liquor_sale": [
+      { "item": "Bag Piper", "ml": null, "ob": null, "recpt": null, "total_sale": null, "cb": null, "rate": null, "amount": null },
+      { "item": "Blender P", "ml": null, "ob": null, "recpt": null, "total_sale": null, "cb": null, "rate": null, "amount": null },
+      { "item": "D.S.P. Black", "ml": null, "ob": null, "recpt": null, "total_sale": null, "cb": null, "rate": null, "amount": null },
+      { "item": "Imperial Blue", "ml": null, "ob": null, "recpt": null, "total_sale": null, "cb": null, "rate": null, "amount": null },
+      { "item": "Iconiq", "ml": null, "ob": null, "recpt": null, "total_sale": null, "cb": null, "rate": null, "amount": null },
+      { "item": "Mc No.1 Whisky", "ml": null, "ob": null, "recpt": null, "total_sale": null, "cb": null, "rate": null, "amount": null },
+      { "item": "Mc Luxury", "ml": null, "ob": null, "recpt": null, "total_sale": null, "cb": null, "rate": null, "amount": null },
+      { "item": "Officer C", "ml": null, "ob": null, "recpt": null, "total_sale": null, "cb": null, "rate": null, "amount": null },
+      { "item": "Old Tavern", "ml": null, "ob": null, "recpt": null, "total_sale": null, "cb": null, "rate": null, "amount": null },
+      { "item": "Original C", "ml": null, "ob": null, "recpt": null, "total_sale": null, "cb": null, "rate": null, "amount": null },
+      { "item": "Royal Stag", "ml": null, "ob": null, "recpt": null, "total_sale": null, "cb": null, "rate": null, "amount": null },
+      { "item": "Royal Challag", "ml": null, "ob": null, "recpt": null, "total_sale": null, "cb": null, "rate": null, "amount": null },
+      { "item": "D.K. Whisky", "ml": null, "ob": null, "recpt": null, "total_sale": null, "cb": null, "rate": null, "amount": null },
+      { "item": "R. Stag Barrel", "ml": null, "ob": null, "recpt": null, "total_sale": null, "cb": null, "rate": null, "amount": null },
+      { "item": "Teacher H.L.", "ml": null, "ob": null, "recpt": null, "total_sale": null, "cb": null, "rate": null, "amount": null },
+      { "item": "100 Piper", "ml": null, "ob": null, "recpt": null, "total_sale": null, "cb": null, "rate": null, "amount": null },
+      { "item": "8PM", "ml": null, "ob": null, "recpt": null, "total_sale": null, "cb": null, "rate": null, "amount": null },
+      { "item": "Black & White", "ml": null, "ob": null, "recpt": null, "total_sale": null, "cb": null, "rate": null, "amount": null },
+      { "item": "O.C. Star", "ml": null, "ob": null, "recpt": null, "total_sale": null, "cb": null, "rate": null, "amount": null },
+      { "item": "Paul Johan", "ml": null, "ob": null, "recpt": null, "total_sale": null, "cb": null, "rate": null, "amount": null },
+      { "item": "Haywards", "ml": null, "ob": null, "recpt": null, "total_sale": null, "cb": null, "rate": null, "amount": null },
+      { "item": "M.H. Brandy", "ml": null, "ob": null, "recpt": null, "total_sale": null, "cb": null, "rate": null, "amount": null },
+      { "item": "OMR Gold R", "ml": null, "ob": null, "recpt": null, "total_sale": null, "cb": null, "rate": null, "amount": null },
+      { "item": "Mc Rum", "ml": null, "ob": null, "recpt": null, "total_sale": null, "cb": null, "rate": null, "amount": null },
+      { "item": "B.P. Rum", "ml": null, "ob": null, "recpt": null, "total_sale": null, "cb": null, "rate": null, "amount": null },
+      { "item": "Old Monk", "ml": null, "ob": null, "recpt": null, "total_sale": null, "cb": null, "rate": null, "amount": null }
+    ]
+  }
+}
