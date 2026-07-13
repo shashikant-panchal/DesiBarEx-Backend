@@ -69,7 +69,7 @@ router.get('/owners', async (req, res) => {
   }
 });
 
-// POST /api/owners - Super Admin: Create a new owner
+// POST /api/owners - Super Admin: Create a new owner (PIN must be exactly 4 digits)
 router.post('/owners', async (req, res) => {
   try {
     const { superpin } = req.headers;
@@ -77,8 +77,8 @@ router.post('/owners', async (req, res) => {
       return res.status(403).json({ error: 'Unauthorized' });
     }
     const { pin } = req.body;
-    if (!pin || pin.length < 4) {
-      return res.status(400).json({ error: 'PIN must be at least 4 digits' });
+    if (!pin || !/^\d{4}$/.test(String(pin))) {
+      return res.status(400).json({ error: 'PIN must be exactly 4 digits' });
     }
     const existing = await Owner.findOne({ pin: String(pin) });
     if (existing) {
@@ -87,6 +87,34 @@ router.post('/owners', async (req, res) => {
     const owner = new Owner({ pin: String(pin) });
     await owner.save();
     res.status(201).json(owner);
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
+});
+
+// PUT /api/owners/:id - Super Admin: Edit an owner's PIN (must be exactly 4 digits)
+router.put('/owners/:id', async (req, res) => {
+  try {
+    const { superpin } = req.headers;
+    if (superpin !== '286353') {
+      return res.status(403).json({ error: 'Unauthorized' });
+    }
+    const { pin } = req.body;
+    if (!pin || !/^\d{4}$/.test(String(pin))) {
+      return res.status(400).json({ error: 'PIN must be exactly 4 digits' });
+    }
+    // Check duplicate
+    const conflict = await Owner.findOne({ pin: String(pin), _id: { $ne: req.params.id } });
+    if (conflict) {
+      return res.status(409).json({ error: 'An owner with this PIN already exists' });
+    }
+    const updated = await Owner.findByIdAndUpdate(
+      req.params.id,
+      { pin: String(pin) },
+      { new: true }
+    );
+    if (!updated) return res.status(404).json({ error: 'Owner not found' });
+    res.json(updated);
   } catch (err) {
     res.status(400).json({ error: err.message });
   }
