@@ -24,6 +24,37 @@ router.post('/verify-pin', async (req, res) => {
   }
 });
 
+// POST /api/change-pin - Changes/Updates the Owner PIN code
+router.post('/change-pin', async (req, res) => {
+  try {
+    const { oldPin, newPin } = req.body;
+    if (!oldPin || !newPin) {
+      return res.status(400).json({ error: 'Old and new PINs are required' });
+    }
+
+    // Check if the old PIN matches an existing owner record
+    let owner = await Owner.findOne({ pin: String(oldPin) });
+    if (!owner) {
+      // If DB is completely empty and old PIN is the fallback '6353', create/initialize the first pin
+      const count = await Owner.countDocuments();
+      if (count === 0 && String(oldPin) === '6353') {
+        owner = new Owner({ pin: String(newPin) });
+        await owner.save();
+        return res.json({ success: true, message: 'PIN initialized successfully' });
+      }
+      return res.status(400).json({ error: 'Invalid old PIN' });
+    }
+
+    // Save/Update with the new PIN
+    owner.pin = String(newPin);
+    await owner.save();
+    res.json({ success: true, message: 'PIN updated successfully' });
+  } catch (err) {
+    console.error('Change PIN error:', err);
+    res.status(500).json({ error: 'Failed to change PIN: ' + err.message });
+  }
+});
+
 // GET /api/catalog - Returns the initial brand list from Brand list.json
 router.get('/catalog', (req, res) => {
   const filePath = path.join(__dirname, 'Brand list.json');
