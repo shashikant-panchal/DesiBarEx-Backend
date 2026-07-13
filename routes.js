@@ -3,6 +3,26 @@ const router = express.Router();
 const fs = require('fs');
 const path = require('path');
 const Entry = require('./entryModel');
+const Owner = require('./ownerModel');
+
+// POST /api/verify-pin - Verifies Owner PIN codes
+router.post('/verify-pin', async (req, res) => {
+  try {
+    const { pin } = req.body;
+    if (!pin) {
+      return res.status(400).json({ error: 'PIN is required' });
+    }
+    const match = await Owner.findOne({ pin: String(pin) });
+    if (match) {
+      res.json({ success: true });
+    } else {
+      res.json({ success: false });
+    }
+  } catch (err) {
+    console.error('PIN verification error:', err);
+    res.status(500).json({ error: 'Database verification failed' });
+  }
+});
 
 // GET /api/catalog - Returns the initial brand list from Brand list.json
 router.get('/catalog', (req, res) => {
